@@ -8,7 +8,7 @@ module.exports = app => {
         try {
             existsOrError(cliente.nome, 'Nome não informado.')
             existsOrError(cliente.cpf, 'Cpf não informado.')
-            existsOrError(cliente.email, 'Email não informado corretamente.')
+            existsOrError(cliente.email, 'Email não informado.')
             existsOrError(cliente.telefone, 'Telefone não informado.')
         } catch(msg){
             return res.status(400).send(msg)
