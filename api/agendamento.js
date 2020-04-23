@@ -2,7 +2,16 @@ module.exports = app => {
     const {existsOrError, notExistsOrError} = app.api.validation
 
     const save = (req, res) => {
-        const agendamento = {...req.body}
+        const agendamento = {
+            data: req.body.agendamento,
+            hora: req.body.agendamento,
+            Codagendamento: req.body.agendamento,
+            clienteId: req.body.clienteId,
+            barbeariaId: req.body.barbeariaId,
+            barbeiroId: req.body.barbeiroId,
+            itemId: req.body.itemId
+
+        }
         if(req.params.Codagendamento) agendamento.Codagendamento = req.params.Codagendamento
     
         try {

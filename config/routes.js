@@ -52,7 +52,7 @@ module.exports = app =>{
         .put(app.api.venda.save)
         .delete(app.api.venda.remove)
     
-    app.route('/agentamentos')
+    app.route('/agendamentos')
         .post(app.api.agendamento.save)
         .get(app.api.agendamento.get)
 

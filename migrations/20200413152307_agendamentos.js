@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable('agendamentos', table => {
         table.increments('Codagendamento').notNull()
         table.date('data').notNull()
-        table.time('hora').notNull()
+        table.time('hora',[6]).notNull()
         table.integer('clienteId').references('Codcliente')
             .inTable('clientes').notNull()
         table.integer('barbeariaId').references('Codbarbearia')
