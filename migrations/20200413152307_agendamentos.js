@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('agendamentos', table => {
-        table.increments('Codagendamento').primary()
+        table.increments('Codagendamento').notNull()
         table.date('data').notNull()
         table.time('hora').notNull()
         table.integer('clienteId').references('Codcliente')

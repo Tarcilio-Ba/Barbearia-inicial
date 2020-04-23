@@ -52,6 +52,13 @@ module.exports = app =>{
         .put(app.api.venda.save)
         .delete(app.api.venda.remove)
     
+    app.route('/agentamentos')
+        .post(app.api.agendamento.save)
+        .get(app.api.agendamento.get)
 
+    app.route('/agendamentos/:Codagendamento')
+        .get(app.api.agendamento.getById)
+        .put(app.api.agendamento.save)
+        .delete(app.api.agendamento.remove)
 
     }

@@ -1,13 +1,18 @@
 module.exports = app => {
-    const {existsOrerror, notExistsOrError} = app.api.validation
+    const {existsOrError, notExistsOrError} = app.api.validation
 
     const save = (req, res) => {
         const agendamento = {...req.body}
         if(req.params.Codagendamento) agendamento.Codagendamento = req.params.Codagendamento
     
         try {
-            existsOrerror(agendamento.data, 'Data não informada.')
-            existsOrerror(agendamento.hora, 'Horário não informado.')
+            existsOrError(agendamento.data, 'Data não informada.')
+            existsOrError(agendamento.hora, 'Horário não informado.')
+            existsOrError(agendamento.clienteId, 'Informe o código do cliente.')
+            existsOrError(agendamento.barbeariaId, 'Informe o código da barbearia.')
+            existsOrError(agendamento.barbeiroId, 'Informe o código do barbeiro.')
+            existsOrError(agendamento.itemId, 'Informe o código do serviço.')            
+            
         }catch(msg){
             return res.status(400).send(msg)
         }
@@ -29,7 +34,7 @@ module.exports = app => {
 
     const remove = async (req, res) => {
         try {
-            existsOrerror(req.params.Codagendamento, 'Código do agendamento não informado.')
+            existsOrError(req.params.Codagendamento, 'Código do agendamento não informado.')
             
             const cliente = await app.db('agendamentos')
                 .where({clienteId: req.params.Codcliente})
