@@ -1,4 +1,4 @@
-const {authSercret} = require('../.env')
+const {authSecret} = require('../.env')
 const passport = require('passport')
 const passportJwt = require('passport-jwt')
 const {Strategy, ExtractJwt} = passportJwt
@@ -6,7 +6,7 @@ const {Strategy, ExtractJwt} = passportJwt
 
 module.exports = app => {
     const params = {
-        secretOrkey: authSercret,
+        secretOrKey: authSecret,
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     }
 
@@ -18,7 +18,7 @@ module.exports = app => {
             .catch(err => done(err, false))
     })
 
-    passport.barbearia(strategy)
+    passport.use(strategy)
 
     return {
         authenticate: () => passport.authenticate('jwt', {session: false})
