@@ -1,4 +1,8 @@
 module.exports = app =>{
+    app.post('/signup', app.api.barbearia.save)
+    app.post('/signin', app.api.auth.signin)
+    app.post('/validateToken', app.api.auth.validateToken)
+
     app.route('/barbearias')
         .post(app.api.barbearia.save)
         .get(app.api.barbearia.get)

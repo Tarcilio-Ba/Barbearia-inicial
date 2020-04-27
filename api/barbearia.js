@@ -21,7 +21,7 @@ module.exports = app =>{
             existsOrError(barbearia.password, barbearia.confirmPassword, 'Senha não conferem')
         
             const barbeariaFromDB = await app.db('barbearias')
-                .where({email:barbearia.email}).first()
+                .where({email: barbearia.email}).first()
             if(!barbearia.Codbarbearia){
                 notExistsOrError(barbeariaFromDB,'Usuário já cadastrado.')
             }
