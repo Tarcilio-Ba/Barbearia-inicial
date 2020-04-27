@@ -18,7 +18,7 @@ module.exports = app =>{
             existsOrError(barbearia.telefone, 'Telefone não informado')
             existsOrError(barbearia.password, 'Senha não informada')
             existsOrError(barbearia.confirmPassword, 'Confirmação de senha inválida')
-            existsOrError(barbearia.password, barbearia.confirmPassword, 'Senha não conferem')
+            existsOrError(barbearia.password, barbearia.confirmPassword, 'Senha inválidas.')
         
             const barbeariaFromDB = await app.db('barbearias')
                 .where({email: barbearia.email}).first()
