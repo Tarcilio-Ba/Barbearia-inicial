@@ -9,12 +9,13 @@ module.exports = app => {
     app.route('/barbearias')
         .all(app.config.passport.authenticate())
         .post(admin(app.api.barbearia.save))
-        .get(admin(app.api.barbearia.get))
+        .get(app.api.barbearia.get)
 
     app.route('/barbearias/:Codbarbearia')
         .all(app.config.passport.authenticate())
         .put(admin(app.api.barbearia.save))
-        .get(admin(app.api.barbearia.getById))
+        .get(app.api.barbearia.getById)
+        .delete(admin(app.api.barbearia.remove))
 
     app.route('/barbeiros')
         .all(app.config.passport.authenticate())
@@ -81,5 +82,9 @@ module.exports = app => {
         .get(app.api.agendamento.getById)
         .put(admin(app.api.agendamento.save))
         .delete(admin(app.api.agendamento.remove))
+
+    app.route('/stats')
+        .all(app.config.passport.authenticate())
+        .get(app.api.stat.get)
 
 }

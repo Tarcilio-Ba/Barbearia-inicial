@@ -36,6 +36,7 @@ module.exports = app =>{
             app.db('barbearias')
                 .update(barbearia)
                 .where({Codbarbearia: barbearia.Codbarbearia})
+                .whereNull('deleteAt')
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
         } else {
@@ -49,6 +50,7 @@ module.exports = app =>{
     const get = (req,res) => {
         app.db('barbearias')
             .select('Codbarbearia','nome','endereco','email','telefone','admin')
+            .whereNull('deleteAt')
             .then(barbearias => res.json(barbearias))
             .catch(err => res.status(500).send(err))
 
@@ -58,11 +60,29 @@ module.exports = app =>{
         app.db('barbearias')
             .select('Codbarbearia','nome','endereco','email','telefone','admin')
             .where({Codbarbearia: req.params.Codbarbearia})
+            .whereNull('deleteAt')
             .first()
             .then(barbearia => res.json(barbearia))
             .catch(err => res.status(500).send(err))
 
     }
 
-    return {save, get, getById}
+    const remove = async (req, res) => {
+        try{
+            const agendamento = await app.db('agendamentos')
+                .where({barbeariaId: req.params.Codbarbearia})
+            notExistsOrError(agendamento, 'Barbearia possui agendamentos.')
+
+            const rowsUpdated = await app.db('barbearias')
+                .update({deleteAt: new Date()})
+                .where({Codbarbearia: req.params.Codbarbearia})
+            existsOrError(rowsUpdated, 'Barberaria não foi encontrada.')
+        
+            res.status(204).send()
+        } catch(msg) {
+            res.status(400).send(msg)
+        }
+    }
+
+    return {save, get, getById, remove}
 }
