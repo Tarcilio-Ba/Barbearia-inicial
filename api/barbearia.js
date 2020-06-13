@@ -11,6 +11,10 @@ module.exports = app =>{
     const save = async (req, res) =>{
         const barbearia = { ...req.body } 
         if(req.params.Codbarbearia) barbearia.Codbarbearia = req.params.Codbarbearia
+        
+        if(!req.originalUrl.startsWith('/barbearias')) barbearia.admin = false
+        if(!req.barbearia || !req.barbearia.admin) barbearia.admin = false
+
         try{
             existsOrError(barbearia.nome, 'Nome não informado')
             existsOrError(barbearia.endereco, 'Endereço não informado')
